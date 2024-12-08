@@ -6,10 +6,13 @@ import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import FooterCom from "./components/FooterCom";
 
 export default function App() {
   return (
-    <BrowserRouter future={{ v7_relativeSplatPath: true , v7_startTransition: true }}>
+    <BrowserRouter
+      future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
+    >
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -19,6 +22,7 @@ export default function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/about" element={<About />} />
       </Routes>
+      <FooterCom />
     </BrowserRouter>
   );
 }

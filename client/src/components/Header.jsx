@@ -8,7 +8,7 @@ export default function Header() {
   const path = useLocation().pathname;
   return (
     <Navbar className="border-b-2">
-      <Link to="/" className="self-center whitespace-nowrap ">
+      <Link to="/" className="self-center whitespace-nowrap text-sm sm:text-xl ">
         <span className="p-2 bg-gradient-to-r from-indigo-500 via-purple-900 to-pink-500 rounded-md">
           TeachDaddy
         </span>
@@ -29,7 +29,7 @@ export default function Header() {
           <MdDarkMode />
         </Button>
         <Link to="/sign-in">
-          <Button gradientDuoTone="tealToLime" className="p-1 rounded-3xl">
+          <Button gradientDuoTone="tealToLime" className="p-1 rounded-3xl" >
             Sign In
           </Button>
         </Link>
