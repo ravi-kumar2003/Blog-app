@@ -1,14 +1,22 @@
-import { Button, Navbar, TextInput } from "flowbite-react";
+import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import React from "react";
-import { MdDarkMode } from "react-icons/md";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../redux/theme/themeSlice";
 
 export default function Header() {
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch((state) => state.theme);
+  const { theme } = useSelector((state) => state.theme);
   const path = useLocation().pathname;
   return (
     <Navbar className="border-b-2">
-      <Link to="/" className="self-center whitespace-nowrap text-sm sm:text-xl ">
+      <Link
+        to="/"
+        className="self-center whitespace-nowrap text-sm sm:text-xl "
+      >
         <span className="p-2 bg-gradient-to-r from-indigo-500 via-purple-900 to-pink-500 rounded-md">
           TeachDaddy
         </span>
@@ -25,14 +33,41 @@ export default function Header() {
         <FaSearch />
       </Button>
       <div className="flex gap-2 md:order-2">
-        <Button className="w-12 h-10 lg:hidden" color="gray" pill>
-          <MdDarkMode />
+        <Button
+          className="w-12 h-10 "
+          color="gray"
+          pill
+          onClick={() => dispatch(toggleTheme())}
+        >
+          {theme === "light" ? <MdLightMode /> : <MdDarkMode />}
         </Button>
-        <Link to="/sign-in">
-          <Button gradientDuoTone="tealToLime" className="p-1 rounded-3xl" >
-            Sign In
-          </Button>
-        </Link>
+        {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt="user" img={currentUser.profilePicture} rounded />
+            }
+          >
+            <Dropdown.Header>
+              <span className="block text-small  ">{currentUser.username}</span>
+              <span className="block text-small font-medium truncate ">
+                {currentUser.email}
+              </span>
+            </Dropdown.Header>
+            <Link to={"/dashboard?tab=profile"}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item>Sign Out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to="/sign-in">
+            <Button gradientDuoTone="tealToLime" className="p-1 rounded-3xl">
+              Sign In
+            </Button>
+          </Link>
+        )}
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>

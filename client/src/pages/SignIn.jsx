@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   signInStart,
   signInSuccess,
-  signInfailure,
+  signInFailure,
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import OAuth from "../components/OAuth";
@@ -22,7 +22,7 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return dispatch(signInfailure("please fill all the fields"));
+      return dispatch(signInFailure("please fill all the fields"));
     }
     try {
       dispatch(signInStart());
@@ -33,14 +33,14 @@ export default function SignIn() {
       });
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signInfailure(data.message));
+        dispatch(signInFailure(data.message));
       }
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (err) {
-      dispatch(signInfailure(data.message));
+      dispatch(signInFailure(data.message));
     }
   };
 

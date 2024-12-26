@@ -1,11 +1,11 @@
 import React from "react";
 import { Button } from "flowbite-react";
+import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { app } from "../firebase";
-import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { signInSuccess } from "../redux/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function OAuth() {
   const auth = getAuth(app);
